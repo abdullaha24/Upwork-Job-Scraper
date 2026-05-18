@@ -98,7 +98,7 @@ function getApproximateCandidateTimestamp(args: {
 		nowMinutes >= args.startMinutes && nowMinutes <= args.endMinutes;
 	const inCurrentWindow = inActiveDay && inTimeWindow;
 	const intervalMs =
-		Math.max(5, Math.floor(args.settings.minuteInterval || 5)) * 60 * 1000;
+		Math.max(2, Math.floor(args.settings.minuteInterval || 2)) * 60 * 1000;
 
 	if (inActiveDay && nowMinutes < args.startMinutes) {
 		return {

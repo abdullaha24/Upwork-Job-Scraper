@@ -91,7 +91,7 @@ export function sanitizeSettings(input: unknown): Settings {
         : [createDefaultSearchTarget(0)],
     minuteInterval:
       typeof typed.minuteInterval === 'number' && Number.isFinite(typed.minuteInterval)
-        ? Math.max(5, Math.floor(typed.minuteInterval))
+        ? Math.max(2, Math.floor(typed.minuteInterval))
         : DEFAULT_SETTINGS.minuteInterval,
     activeDays: sanitizeActiveDays(typed.activeDays),
     timeWindow: sanitizeTimeWindow(typed.timeWindow),
@@ -166,7 +166,7 @@ export const settingsStorage = storage.defineItem<Settings>('sync:settings', {
 
       return {
         ...(old as unknown as Settings),
-        minuteInterval: Math.max(5, Math.floor(rawMinuteInterval || 5)),
+        minuteInterval: Math.max(2, Math.floor(rawMinuteInterval || 2)),
         activeDays: [false, true, true, true, true, true, false],
         timeWindow: { start: '00:00', end: '23:59' },
       };

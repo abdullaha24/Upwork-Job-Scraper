@@ -220,7 +220,7 @@ async function migrateSettingsFromLegacy(
 	const mappedMinuteInterval =
 		typeof sync.checkFrequency === "number" &&
 		Number.isFinite(sync.checkFrequency)
-			? Math.max(5, Math.floor(sync.checkFrequency))
+			? Math.max(2, Math.floor(sync.checkFrequency))
 			: currentSettings.minuteInterval;
 
 	const mappedSettings: Settings = {

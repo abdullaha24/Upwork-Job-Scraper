@@ -66,8 +66,8 @@ export function SchedulePage({ settings, onChange }: Props) {
 
 	const setMinuteInterval = (value: number) => {
 		const nextValue = Math.max(
-			5,
-			Number.isFinite(value) ? Math.floor(value) : 5,
+			2,
+			Number.isFinite(value) ? Math.floor(value) : 2,
 		);
 		onChange({
 			...settings,
@@ -159,13 +159,13 @@ export function SchedulePage({ settings, onChange }: Props) {
 					<TextField.Root
 						size="2"
 						type="number"
-						min={5}
+						min={2}
 						value={String(settings.minuteInterval)}
 						onChange={(e) => setMinuteInterval(Number(e.target.value))}
 					/>
 				</Box>
 				<Text size="1" color="gray" mt="3" as="p">
-					Minimum interval is 5 minutes.
+					Minimum interval is 2 minutes.
 				</Text>
 			</Card>
 

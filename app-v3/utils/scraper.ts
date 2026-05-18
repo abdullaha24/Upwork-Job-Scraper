@@ -91,8 +91,8 @@ export async function setupAlarm(): Promise<void> {
 	if (!settings.masterEnabled) return;
 
 	const baseDelayMinutes = Math.max(
-		5,
-		Math.floor(settings.minuteInterval || 5),
+		2,
+		Math.floor(settings.minuteInterval || 2),
 	);
 	const delayInMinutes = getJitteredDelayMinutes(baseDelayMinutes);
 

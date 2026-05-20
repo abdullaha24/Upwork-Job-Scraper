@@ -171,9 +171,22 @@ async function waitForTabComplete(
 	}
 
 	await new Promise<void>((resolve, reject) => {
-		const timeout = setTimeout(() => {
+		const timeout = setTimeout(async () => {
 			cleanup();
-			reject(new Error("Tab load timeout"));
+			try {
+				const tab = await browser.tabs.get(tabId);
+				reject(
+					new Error(
+						`Tab load timeout. Expected prefix: ${normalizedExpected}. Actual URL: ${tab?.url ?? "unknown"} (status: ${tab?.status ?? "unknown"})`,
+					),
+				);
+			} catch (err) {
+				reject(
+					new Error(
+						`Tab load timeout. Expected prefix: ${normalizedExpected}. (Failed to get tab URL: ${toErrorMessage(err)})`,
+					),
+				);
+			}
 		}, 60_000);
 
 		const cleanup = () => {

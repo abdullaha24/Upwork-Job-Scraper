@@ -357,7 +357,7 @@ async function scrapeTarget(target: SearchTarget): Promise<ScrapeResult> {
 			return {
 				ok: false,
 				reason: "error",
-				error: "Tab load timeout",
+				error: toErrorMessage(error),
 			};
 		}
 

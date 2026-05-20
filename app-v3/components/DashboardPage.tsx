@@ -57,7 +57,7 @@ export function DashboardPage({ settings, jobs }: Props) {
 				</Callout.Icon>
 				<Callout.Text>
 					<strong>
-						Welcome to the Upwork Job Scraper + Webhook Browser Extension:
+						Welcome to the Abdullah's Upwork Job Hunter v1 + Webhook Browser Extension:
 					</strong>{" "}
 					all other Upwork scrapers (including options on platforms like Apify)
 					only return public (limited) search results from Upwork. Upwork only

@@ -170,7 +170,7 @@ function SidebarHeader(props: Readonly<SidebarHeaderProps>) {
 					mt="2"
 					mb="0"
 				>
-					Upwork Job Scraper + Webhook Extension
+					Abdullah's Upwork Job Hunter v1
 				</Text>
 			)}
 		</Box>

@@ -7,7 +7,7 @@ const DEFAULT_SENTRY_RELEASE = `upwork-job-scraper@${PACKAGE_VERSION}`;
 export default defineConfig({
 	modules: ["@wxt-dev/module-react"],
 	manifest: () => ({
-		name: "Upwork Job Scraper",
+		name: "Abdullah's Upwork Job Hunter v1",
 		description:
 			"Automatically scrape Upwork job listings and send them to a webhook.",
 		permissions: ["storage", "tabs", "scripting", "alarms", "notifications"],
@@ -16,7 +16,7 @@ export default defineConfig({
 			"https://*.ingest.sentry.io/*",
 		],
 		action: {
-			default_title: "Upwork Job Scraper",
+			default_title: "Abdullah's Upwork Job Hunter v1",
 			default_icon: {
 				16: "icon/16.png",
 				32: "icon/32.png",

@@ -141,25 +141,20 @@ async function resolveWindowIdForBackgroundTab(): Promise<number | undefined> {
 	return windows.find((window) => typeof window.id === "number")?.id;
 }
 
-function normalizeUrlForCompare(urlStr: string): string {
-	try {
-		const url = new URL(urlStr);
-		const cleanPath = url.pathname.replace(/\/+$/, "");
-		return `${url.origin}${cleanPath}`.toLowerCase();
-	} catch {
-		return urlStr.toLowerCase();
-	}
-}
-
 async function waitForTabComplete(
 	tabId: number,
 	expectedBase: string,
 ): Promise<void> {
-	const normalizedExpected = normalizeUrlForCompare(expectedBase);
-
-	const checkUrl = (url?: string): boolean => {
-		if (!url) return false;
-		return normalizeUrlForCompare(url).startsWith(normalizedExpected);
+	const checkUrl = (urlStr?: string): boolean => {
+		if (!urlStr) return false;
+		try {
+			const url = new URL(urlStr);
+			if (!url.hostname.endsWith("upwork.com")) return false;
+			const path = url.pathname.toLowerCase();
+			return path.includes("/search/jobs") || path.includes("/jobs/search");
+		} catch {
+			return false;
+		}
 	};
 
 	const currentTab = await browser.tabs.get(tabId).catch(() => null);
@@ -177,13 +172,13 @@ async function waitForTabComplete(
 				const tab = await browser.tabs.get(tabId);
 				reject(
 					new Error(
-						`Tab load timeout. Expected prefix: ${normalizedExpected}. Actual URL: ${tab?.url ?? "unknown"} (status: ${tab?.status ?? "unknown"})`,
+						`Tab load timeout. Expected keyword search page. Actual URL: ${tab?.url ?? "unknown"} (status: ${tab?.status ?? "unknown"})`,
 					),
 				);
 			} catch (err) {
 				reject(
 					new Error(
-						`Tab load timeout. Expected prefix: ${normalizedExpected}. (Failed to get tab URL: ${toErrorMessage(err)})`,
+						`Tab load timeout. Expected keyword search page. (Failed to get tab URL: ${toErrorMessage(err)})`,
 					),
 				);
 			}

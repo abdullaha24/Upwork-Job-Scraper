@@ -141,14 +141,31 @@ async function resolveWindowIdForBackgroundTab(): Promise<number | undefined> {
 	return windows.find((window) => typeof window.id === "number")?.id;
 }
 
+function normalizeUrlForCompare(urlStr: string): string {
+	try {
+		const url = new URL(urlStr);
+		const cleanPath = url.pathname.replace(/\/+$/, "");
+		return `${url.origin}${cleanPath}`.toLowerCase();
+	} catch {
+		return urlStr.toLowerCase();
+	}
+}
+
 async function waitForTabComplete(
 	tabId: number,
 	expectedBase: string,
 ): Promise<void> {
+	const normalizedExpected = normalizeUrlForCompare(expectedBase);
+
+	const checkUrl = (url?: string): boolean => {
+		if (!url) return false;
+		return normalizeUrlForCompare(url).startsWith(normalizedExpected);
+	};
+
 	const currentTab = await browser.tabs.get(tabId).catch(() => null);
 	if (
 		currentTab?.status === "complete" &&
-		currentTab.url?.startsWith(expectedBase)
+		checkUrl(currentTab.url)
 	) {
 		return;
 	}
@@ -179,7 +196,7 @@ async function waitForTabComplete(
 			if (
 				updatedTabId === tabId &&
 				updatedTab.status === "complete" &&
-				updatedTab.url?.startsWith(expectedBase)
+				checkUrl(updatedTab.url)
 			) {
 				cleanup();
 				resolve();

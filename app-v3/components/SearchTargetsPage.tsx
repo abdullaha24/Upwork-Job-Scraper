@@ -40,7 +40,7 @@ interface Props {
 
 type TestStatus = "idle" | "sending" | "ok" | "error";
 
-const UPWORK_SEARCH_PREFIX = "https://www.upwork.com/nx/search/jobs/";
+const UPWORK_SEARCH_PREFIX = "https://www.upwork.com/nx/search/jobs";
 const BASE_UPWORK_SEARCH_URL =
 	"https://www.upwork.com/nx/search/jobs/?sort=recency&page=1&per_page=50";
 

@@ -151,7 +151,7 @@ async function waitForTabComplete(
 			const url = new URL(urlStr);
 			if (!url.hostname.endsWith("upwork.com")) return false;
 			const path = url.pathname.toLowerCase();
-			return path.includes("/search/jobs") || path.includes("/jobs/search");
+			return path.includes("search/jobs") || path.includes("jobs/search");
 		} catch {
 			return false;
 		}
